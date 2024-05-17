@@ -1,0 +1,217 @@
+# osrm version 4.2.0
+
+## Fix
+* change the pkg level documentation for alias (#125)
+
+## Feat
+* add suport for tibbles (#128 thanks to @Moohan)
+
+
+# osrm version 4.1.1
+
+## Fix 
+* use bibentry() instead of citEntry()
+
+
+
+# osrm version 4.1.0
+
+## Fix
+* fix and refactor osrmTrip() for better handling of points close to each others
+* use raw coordinates for table queries instead of googlepolylines when using the demo server (see #119)
+
+## Feat 
+* add a citation file
+* add osrmNearest() to get the closest point on the street network, interface to the nearest service
+
+
+
+# osrm version 4.0.0
+
+## Major changes
+* drop sp support (deprecate returnclass, to be removed in the next minor version), osrm no longer accepts sp objects, nor sp results
+* refactor to better display server error and warnings messages
+* use RcppSimdJson instead of jsonlite
+* use mapiso instead of isoband code for isopolygon creation
+* osrmTable(): 
+    - change in args order (loc, src, dst, ... => src,dst, loc, ...)
+    - loc, src, dst accept data.frame, matrix, sfc and sf objects
+    - identifiers are not needed, osrm uses row.names or indexes
+    - better input type checking
+* osrmRoute():
+    - loc, src, dst accept data.frame, matrix, sfc and sf objects
+    - identifiers are not needed, osrm uses row.names or indexes
+    - better input type checking
+* osrmTrip():
+    - loc accepts vector of coordinates, data.frame, matrix, sfc and sf objects
+    - identifiers are not needed, osrm uses row.names or indexes
+    - better input type checking
+* osrmIsochrone() & osrmIsometric():
+    - loc, src, dst accept data.frame, matrix, sfc and sf objects
+    - identifiers are not needed, osrm uses row.names or indexes
+    - better input type checking
+    - the sf output has now three fields (id, isomin and isomax)
+    - osrmIsometric() has been renamed to osrmIsodistance()
+
+
+
+# osrm version 3.5.1 (Release date 2022-01)
+
+## Minor changes
+* Fix is() usage 
+
+
+
+# osrm version 3.5.0 (Release date 2021-09)
+
+## Major change
+* remove sp argument from osrmRoute()
+* returnClass default is now "sf" where it was previously "sp"
+* The next major version of osrm will drop support for sp objects
+
+## Minor changes
+* Better handling of request with curl_fetch_memory()
+* Better (lower) default value for demo server
+* Update demo in README with complete maptiles + mapsf + osrm example
+* Update sf dataset (update crs)
+* Replace old RData sample dataset by new dataset in raw files
+* 
+
+# osrm version 3.4.1 (Release date 2020-03)
+
+## Minor changes
+* switch from gepaf to googlePolylines, great speed improvement (thank to John Sheffield @sheffe)
+* use .onLoad instead of .onAttach to set the demo server by default
+* replace examples that use cartography by mapsf examples. 
+* curl instead of RCurl
+
+
+# osrm version 3.4.0 (Release date: 2020-12)
+
+## Minor changes
+* change demo server from http://router.project-osrm.org/ to https://routing.openstreetmap.de/
+* add osrm.server and osrm.profile in function to change the server directly in functions. 
+* 
+
+# osrm version 3.3.3 (Release date: 2020-04-14)
+
+## Minor changes
+* Changes to accomodate sf >= 0.9 and st_make_valid no longer in lwgeom
+* iso isometric zones in osrmIsochrone()
+* increase dmax in osrmIsochrone()
+
+
+
+
+
+# osrm version 3.3.2 (Release date: 2019-09-24)
+
+## Minor changes
+* allow via points in osrmRoute with the "loc"" argument. (see #41)
+* allow lon/lat vectors as src and dst arguments without identifier ("src"" and "dst"" as default names). (see #51)
+* suppression of old and unused datasets 
+
+
+# osrm version 3.3.1 (Release date: 2019-07-12)
+
+## Minor changes
+* correct edge cases of coordinates precision (suppress scientific notation)  (#44)
+* fix isochrone computation (#49 and #45)
+* add message for too large breaks or too lower resolution (#48)
+
+
+
+# osrm version 3.3.0 (Release date: 2019-04-29)
+
+This version should not break previous code.
+## Major changes
+* sf support in all functions for input (src, dst, loc) and output (returnclass="sf")
+* The algorithm for isochrone has been changed to a more robust one that use isoband package, results may differ...
+* add apotheke.sf sf POINT in the package dataset "berlin". 
+* examples have been simplified and mainly cover sf use. 
+
+
+
+# osrm version 3.2.0 (Release date: 2018-12-12)
+
+## Minor changes
+* Add the exclude option to exclude some road types. Thanks to PR #32 by @mbask 
+* Better info message when the public server receive too many requests. 
+* Add a "measure" arg to osrmTable to obtain distance table (meters). fix #33.   
+* Berlin example in README
+
+
+
+# osrm version 3.1.1 (Release date: 2018-03-12)
+
+## Minor changes
+* Put sp in Import rather than in Depends
+* bug fix in osrmTrip.
+* Better error messages.
+
+
+# osrm version 3.1.0 (Release date: 2017-06-08)
+
+## Minor changes
+* Use last version of cartography in examples
+* Adaptation to the current osrm demo server (ex. gepaf arg in osrmTable). 
+* Examples in Berlin instead of north of France, easier with OSRM example docker image
+
+
+
+# osrm version 3.0.2 (Release date: 2017-06-08)
+
+## Minor changes
+* set the grid size for computing isochrones in osrmIsochrone (more precise isopleth maps)
+* fix osrmTrip
+
+
+
+
+
+
+# osrm version 3.0.1 (Release date: 2017-03-31)
+
+## Minor changes
+* Enable changing the profile via options(osrm.profile = "name.of.the.profile")(driving is set by default).  
+* Small fixes and adaptations to the API (in osrmTrip  mainly)
+
+
+
+
+
+
+# osrm version 3.0.0 (Release date: 2016-05-10)
+
+This is a major release. Changes have been made to reflect the evolution of the OSRM routing service/engine.
+The backward compatibility is not ensured. The osrm package works with the version 5.0.0 of the OSRM API.
+
+
+## Major changes:
+* osrmViaroute is suppressed, use osrmRoute with `overview = FALSE` instead.
+* osrmViarouteGeom is replaced by osrmRoute. osrmRoute offers simplified or detailed (full) route geometry via `overview` parameter. 
+* Functions now accept sp objects and data.frames.
+* Add osrmIsochrone. This function computes a SpatialPolygonsDataFrame of isochrones.
+* Add osrmTrip. This function gets the travel geometry between multiple unordered points.
+* Under the hood: some function now use google encoded polylines via gepaf package. 
+
+
+
+# osrm version 2.0.0 (Release date: 2016-01-20)
+
+
+This is a major release. Changes have been made to reflect the evolution of the OSRM routing service/engine.
+The backward compatibility is not ensured. The osrm package works with the version 4.9.0 of the OSRM API.
+
+## Major changes:
+* Supression of osrmTableOD and osrmTableErrors
+* Different parameters names and output in each functions
+* XML and reshape2 packages are no longer imported
+
+
+# osrm version 1.1 (Release date: 2015-11-06)
+
+## Changes:
+* Install instruction in README
+* Add a SpatialLinesDataFrame export to the osrmViaRouteGeom
+* Add the \dontrun{} instruction to all examples due to potential public API downtime and to prevent excessive use of the public API via  regular checks.
